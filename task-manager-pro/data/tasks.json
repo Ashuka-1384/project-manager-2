@@ -1,0 +1,135 @@
+{
+  "tasks": [
+    {
+      "id": "task-001",
+      "title": "طراحی سیستم دیزاین",
+      "description": "طراحی کامل سیستم دیزاین شامل رنگ‌ها، تایپوگرافی، کامپوننت‌ها و آیکون‌ها برای پروژه جدید",
+      "priority": "high",
+      "status": "done",
+      "category": "design",
+      "dueDate": "2025-01-25",
+      "createdAt": "2025-01-10T08:00:00.000Z",
+      "completedAt": "2025-01-24T14:30:00.000Z",
+      "subtasks": [
+        { "id": "s1", "text": "پالت رنگ", "done": true },
+        { "id": "s2", "text": "تایپوگرافی", "done": true },
+        { "id": "s3", "text": "طراحی دکمه‌ها", "done": true },
+        { "id": "s4", "text": "طراحی فرم‌ها", "done": true }
+      ],
+      "tags": ["UI", "Design System", "فیگما"],
+      "timeSpent": 14400,
+      "notes": "فایل فیگما آپلود شده",
+      "pinned": false
+    },
+    {
+      "id": "task-002",
+      "title": "پیاده‌سازی REST API",
+      "description": "ساخت API کامل با Node.js و Express شامل احراز هویت، CRUD عملیات و ولیدیشن",
+      "priority": "high",
+      "status": "in-progress",
+      "category": "development",
+      "dueDate": "2025-02-05",
+      "createdAt": "2025-01-12T10:30:00.000Z",
+      "completedAt": null,
+      "subtasks": [
+        { "id": "s5", "text": "راه‌اندازی Express", "done": true },
+        { "id": "s6", "text": "مدل‌های داده", "done": true },
+        { "id": "s7", "text": "روت‌های CRUD", "done": false },
+        { "id": "s8", "text": "میان‌افزار احراز هویت", "done": false },
+        { "id": "s9", "text": "ولیدیشن ورودی‌ها", "done": false }
+      ],
+      "tags": ["Backend", "Node.js", "API"],
+      "timeSpent": 7200,
+      "notes": "",
+      "pinned": true
+    },
+    {
+      "id": "task-003",
+      "title": "نوشتن تست‌های واحد",
+      "description": "نوشتن unit test برای تمامی سرویس‌ها و کنترلرها با Jest",
+      "priority": "medium",
+      "status": "todo",
+      "category": "testing",
+      "dueDate": "2025-02-15",
+      "createdAt": "2025-01-15T14:00:00.000Z",
+      "completedAt": null,
+      "subtasks": [
+        { "id": "s10", "text": "تست سرویس کاربران", "done": false },
+        { "id": "s11", "text": "تست سرویس تسک‌ها", "done": false }
+      ],
+      "tags": ["QA", "Jest", "تست"],
+      "timeSpent": 0,
+      "notes": "",
+      "pinned": false
+    },
+    {
+      "id": "task-004",
+      "title": "کمپین تبلیغاتی محصول",
+      "description": "برنامه‌ریزی و اجرای کمپین تبلیغاتی برای لانچ محصول جدید",
+      "priority": "medium",
+      "status": "todo",
+      "category": "marketing",
+      "dueDate": "2025-02-20",
+      "createdAt": "2025-01-18T09:00:00.000Z",
+      "completedAt": null,
+      "subtasks": [
+        { "id": "s12", "text": "تحقیقات بازار", "done": false },
+        { "id": "s13", "text": "طراحی بنر", "done": false },
+        { "id": "s14", "text": "نوشتن کپی", "done": false }
+      ],
+      "tags": ["مارکتینگ", "کمپین"],
+      "timeSpent": 0,
+      "notes": "",
+      "pinned": false
+    },
+    {
+      "id": "task-005",
+      "title": "بهینه‌سازی عملکرد",
+      "description": "بهینه‌سازی سرعت لود صفحات و بهبود Core Web Vitals",
+      "priority": "low",
+      "status": "in-progress",
+      "category": "development",
+      "dueDate": "2025-02-10",
+      "createdAt": "2025-01-20T11:00:00.000Z",
+      "completedAt": null,
+      "subtasks": [
+        { "id": "s15", "text": "آنالیز Lighthouse", "done": true },
+        { "id": "s16", "text": "بهینه‌سازی تصاویر", "done": false },
+        { "id": "s17", "text": "Lazy Loading", "done": false }
+      ],
+      "tags": ["Performance", "SEO"],
+      "timeSpent": 3600,
+      "notes": "امتیاز فعلی: 72",
+      "pinned": false
+    },
+    {
+      "id": "task-006",
+      "title": "مستندسازی API",
+      "description": "نوشتن مستندات کامل API با Swagger",
+      "priority": "low",
+      "status": "todo",
+      "category": "development",
+      "dueDate": "2025-03-01",
+      "createdAt": "2025-01-22T16:00:00.000Z",
+      "completedAt": null,
+      "subtasks": [],
+      "tags": ["Docs", "Swagger"],
+      "timeSpent": 0,
+      "notes": "",
+      "pinned": false
+    }
+  ],
+  "categories": [
+    { "id": "development", "name": "توسعه", "color": "#6366f1", "icon": "💻" },
+    { "id": "design", "name": "طراحی", "color": "#f43f5e", "icon": "🎨" },
+    { "id": "testing", "name": "تست", "color": "#10b981", "icon": "🧪" },
+    { "id": "marketing", "name": "مارکتینگ", "color": "#f59e0b", "icon": "📢" },
+    { "id": "personal", "name": "شخصی", "color": "#8b5cf6", "icon": "👤" },
+    { "id": "research", "name": "تحقیقات", "color": "#06b6d4", "icon": "🔬" }
+  ],
+  "settings": {
+    "pomodoroWork": 25,
+    "pomodoroBreak": 5,
+    "pomodoroLongBreak": 15
+  }
+}

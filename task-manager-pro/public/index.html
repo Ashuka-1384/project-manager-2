@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager Pro V2</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✅</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>TaskPro</h1>
+          <span>V2 Ultimate</span>
+        </div>
+      </div>
+      <button class="sidebar-toggle-btn" id="sidebarCloseBtn" aria-label="بستن">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="sidebar-body">
+      <!-- Quick Stats -->
+      <div class="sidebar-quick-stats">
+        <div class="quick-stat">
+          <span class="quick-stat-val" id="qsStreak">0</span>
+          <span class="quick-stat-lbl">🔥 استریک</span>
+        </div>
+        <div class="quick-stat">
+          <span class="quick-stat-val" id="qsRate">0%</span>
+          <span class="quick-stat-lbl">📊 پیشرفت</span>
+        </div>
+        <div class="quick-stat">
+          <span class="quick-stat-val" id="qsTime">0h</span>
+          <span class="quick-stat-lbl">⏱ زمان</span>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+        <div class="nav-group">
+          <div class="nav-group-title">نمای اصلی</div>
+          <button class="nav-btn active" data-view="board">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/></svg>
+            <span>برد کانبان</span>
+          </button>
+          <button class="nav-btn" data-view="grid">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <span>نمای کارت</span>
+          </button>
+          <button class="nav-btn" data-view="list">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+            <span>نمای لیست</span>
+          </button>
+          <button class="nav-btn" data-view="analytics">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            <span>آنالیتیکس</span>
+          </button>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">فیلتر وضعیت</div>
+          <button class="nav-btn filter-btn active-filter" data-filter="all">
+            <div class="filter-dot all"></div>
+            <span>همه</span>
+            <span class="nav-count" id="cntAll">0</span>
+          </button>
+          <button class="nav-btn filter-btn" data-filter="todo">
+            <div class="filter-dot todo"></div>
+            <span>در انتظار</span>
+            <span class="nav-count" id="cntTodo">0</span>
+          </button>
+          <button class="nav-btn filter-btn" data-filter="in-progress">
+            <div class="filter-dot progress"></div>
+            <span>در حال انجام</span>
+            <span class="nav-count" id="cntProgress">0</span>
+          </button>
+          <button class="nav-btn filter-btn" data-filter="done">
+            <div class="filter-dot done"></div>
+            <span>انجام شده</span>
+            <span class="nav-count" id="cntDone">0</span>
+          </button>
+          <button class="nav-btn filter-btn" data-filter="overdue">
+            <div class="filter-dot overdue"></div>
+            <span>عقب‌مانده</span>
+            <span class="nav-count" id="cntOverdue">0</span>
+          </button>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-title">دسته‌بندی‌ها</div>
+          <div id="catNavList"></div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="icon-btn" id="themeBtn" title="تغییر تم">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button class="icon-btn" id="exportBtn" title="خروجی JSON">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      </button>
+      <button class="icon-btn" id="settingsBtn" title="تنظیمات">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <main class="main-content" id="mainContent">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-right">
+        <button class="hamburger" id="hamburgerBtn" aria-label="منو">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="search-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="جستجو..." autocomplete="off" />
+          <kbd class="search-kbd">Ctrl+K</kbd>
+        </div>
+      </div>
+      <div class="header-left">
+        <div class="header-sort" id="sortDropdown">
+          <button class="header-btn" id="sortTrigger">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M6 12h12M9 18h6"/></svg>
+            <span class="hide-mobile" id="sortLabel">جدیدترین</span>
+          </button>
+          <div class="dropdown-menu" id="sortMenu">
+            <button class="dropdown-item active" data-sort="createdAt">⏰ جدیدترین</button>
+            <button class="dropdown-item" data-sort="dueDate">📅 ددلاین</button>
+            <button class="dropdown-item" data-sort="priority">🔥 اولویت</button>
+            <button class="dropdown-item" data-sort="title">🔤 الفبایی</button>
+          </div>
+        </div>
+        <button class="primary-btn" id="newTaskBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7h14"/></svg>
+          <span class="hide-mobile">تسک جدید</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dashboard Stats -->
+    <section class="dashboard" id="dashboard">
+      <div class="dash-card main-progress">
+        <div class="dash-card-body">
+          <div class="main-progress-info">
+            <h3>پیشرفت کلی</h3>
+            <div class="progress-percentage" id="mainPercent">0%</div>
+          </div>
+          <div class="circular-progress" id="circularProgress">
+            <svg viewBox="0 0 100 100">
+              <circle class="cp-bg" cx="50" cy="50" r="42"/>
+              <circle class="cp-fill" cx="50" cy="50" r="42" stroke-dasharray="0 264"/>
+            </svg>
+          </div>
+        </div>
+        <div class="main-progress-bar">
+          <div class="mpb-track">
+            <div class="mpb-fill" id="mainProgressFill" style="width:0%"></div>
+          </div>
+          <div class="mpb-labels">
+            <span><strong id="mpbDone">0</strong> انجام شده</span>
+            <span><strong id="mpbTotal">0</strong> کل</span>
+          </div>
+        </div>
+      </div>
+      <div class="dash-card stat-card-todo">
+        <div class="dash-icon">📋</div>
+        <div class="dash-info">
+          <span class="dash-val" id="dsTodo">0</span>
+          <span class="dash-lbl">در انتظار</span>
+        </div>
+      </div>
+      <div class="dash-card stat-card-progress">
+        <div class="dash-icon">⚡</div>
+        <div class="dash-info">
+          <span class="dash-val" id="dsProgress">0</span>
+          <span class="dash-lbl">در حال انجام</span>
+        </div>
+      </div>
+      <div class="dash-card stat-card-done">
+        <div class="dash-icon">✅</div>
+        <div class="dash-info">
+          <span class="dash-val" id="dsDone">0</span>
+          <span class="dash-lbl">تکمیل شده</span>
+        </div>
+      </div>
+      <div class="dash-card stat-card-overdue">
+        <div class="dash-icon">⚠️</div>
+        <div class="dash-info">
+          <span class="dash-val" id="dsOverdue">0</span>
+          <span class="dash-lbl">عقب‌مانده</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Area -->
+    <section class="content-area" id="contentArea">
+      <!-- Loading -->
+      <div class="loader" id="loader">
+        <div class="loader-ring"></div>
+        <p>در حال بارگذاری...</p>
+      </div>
+
+      <!-- Empty -->
+      <div class="empty" id="emptyState" style="display:none">
+        <div class="empty-anim">
+          <div class="empty-box">
+            <div class="empty-lid"></div>
+            <div class="empty-body-box"></div>
+          </div>
+        </div>
+        <h3>هنوز تسکی نداری!</h3>
+        <p>اولین تسکت رو بساز و کارها رو مدیریت کن 🚀</p>
+        <button class="primary-btn" id="emptyNewBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7h14"/></svg>
+          ساخت اولین تسک
+        </button>
+      </div>
+
+      <!-- Kanban Board -->
+      <div class="kanban" id="kanbanBoard" style="display:none">
+        <div class="kanban-col" data-status="todo">
+          <div class="kanban-col-header todo">
+            <div class="kcol-title">
+              <div class="kcol-dot todo"></div>
+              <h3>در انتظار</h3>
+              <span class="kcol-count" id="kCntTodo">0</span>
+            </div>
+          </div>
+          <div class="kanban-col-body" id="kColTodo"></div>
+        </div>
+        <div class="kanban-col" data-status="in-progress">
+          <div class="kanban-col-header progress">
+            <div class="kcol-title">
+              <div class="kcol-dot progress"></div>
+              <h3>در حال انجام</h3>
+              <span class="kcol-count" id="kCntProgress">0</span>
+            </div>
+          </div>
+          <div class="kanban-col-body" id="kColProgress"></div>
+        </div>
+        <div class="kanban-col" data-status="done">
+          <div class="kanban-col-header done">
+            <div class="kcol-title">
+              <div class="kcol-dot done"></div>
+              <h3>انجام شده</h3>
+              <span class="kcol-count" id="kCntDone">0</span>
+            </div>
+            <button class="kcol-clear" id="clearDoneKanban" title="پاک‌سازی">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14"/></svg>
+            </button>
+          </div>
+          <div class="kanban-col-body" id="kColDone"></div>
+        </div>
+      </div>
+
+      <!-- Grid View -->
+      <div class="grid-view" id="gridView" style="display:none">
+        <div class="gv-header">
+          <h2 id="gridTitle">همه تسک‌ها</h2>
+          <button class="text-btn danger" id="clearDoneGrid" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14"/></svg>
+            پاک‌سازی انجام‌شده‌ها
+          </button>
+        </div>
+        <div class="cards-grid" id="cardsGrid"></div>
+      </div>
+
+      <!-- List View -->
+      <div class="list-view" id="listView" style="display:none">
+        <div class="lv-header">
+          <h2 id="listTitle">همه تسک‌ها</h2>
+        </div>
+        <div class="list-table" id="listTable"></div>
+      </div>
+
+      <!-- Analytics View -->
+      <div class="analytics-view" id="analyticsView" style="display:none">
+        <h2 class="analytics-title">📊 آنالیتیکس و آمار</h2>
+        <div class="analytics-grid">
+          <div class="chart-card">
+            <h3>عملکرد هفتگی</h3>
+            <div class="bar-chart" id="weeklyChart"></div>
+          </div>
+          <div class="chart-card">
+            <h3>توزیع اولویت‌ها</h3>
+            <div class="donut-chart-wrapper">
+              <div class="donut-chart" id="priorityChart"></div>
+              <div class="donut-legend" id="priorityLegend"></div>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h3>عملکرد دسته‌بندی‌ها</h3>
+            <div class="category-bars" id="categoryChart"></div>
+          </div>
+          <div class="chart-card wide">
+            <h3>خلاصه آمار</h3>
+            <div class="summary-stats" id="summaryStats"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══════════ POMODORO WIDGET ═══════════ -->
+  <div class="pomodoro-widget" id="pomodoroWidget">
+    <button class="pomo-toggle" id="pomoToggle" title="تایمر پومودورو">🍅</button>
+    <div class="pomo-panel" id="pomoPanel">
+      <div class="pomo-header">
+        <h3>🍅 پومودورو</h3>
+        <select id="pomoTask" class="pomo-select"></select>
+      </div>
+      <div class="pomo-display">
+        <svg class="pomo-ring" viewBox="0 0 120 120">
+          <circle class="pomo-ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="pomo-ring-fill" cx="60" cy="60" r="52" id="pomoRingFill"/>
+        </svg>
+        <div class="pomo-time" id="pomoTime">25:00</div>
+        <div class="pomo-label" id="pomoLabel">آماده شروع</div>
+      </div>
+      <div class="pomo-controls">
+        <button class="pomo-btn" id="pomoStart">▶ شروع</button>
+        <button class="pomo-btn secondary" id="pomoPause" style="display:none">⏸ توقف</button>
+        <button class="pomo-btn danger" id="pomoReset">↻ ریست</button>
+      </div>
+      <div class="pomo-sessions">
+        <span id="pomoSessions">0</span> جلسه امروز
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TASK MODAL ═══════════ -->
+  <div class="modal-overlay" id="taskModalOverlay">
+    <div class="modal task-modal" id="taskModal">
+      <div class="modal-head">
+        <h2 id="tmTitle">تسک جدید</h2>
+        <button class="modal-x" id="tmClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <form class="modal-body" id="taskForm" autocomplete="off">
+        <input type="hidden" id="fId"/>
+
+        <div class="field">
+          <label>عنوان *</label>
+          <input type="text" id="fTitle" placeholder="عنوان تسک..." required/>
+        </div>
+
+        <div class="field">
+          <label>توضیحات</label>
+          <textarea id="fDesc" rows="3" placeholder="توضیحات..."></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>اولویت</label>
+            <div class="prio-btns" id="prioBtns">
+              <button type="button" class="prio low" data-p="low"><i></i>کم</button>
+              <button type="button" class="prio med active" data-p="medium"><i></i>متوسط</button>
+              <button type="button" class="prio high" data-p="high"><i></i>زیاد</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>دسته‌بندی</label>
+            <select id="fCategory"></select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>ددلاین</label>
+            <input type="date" id="fDueDate"/>
+          </div>
+          <div class="field">
+            <label>تگ‌ها</label>
+            <input type="text" id="fTags" placeholder="با کاما جدا کنید"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>یادداشت</label>
+          <textarea id="fNotes" rows="2" placeholder="یادداشت خصوصی..."></textarea>
+        </div>
+
+        <div class="field">
+          <label>زیرتسک‌ها</label>
+          <div class="st-input-row">
+            <input type="text" id="stInput" placeholder="زیرتسک جدید..."/>
+            <button type="button" class="st-add" id="stAddBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14m-7-7h14"/></svg>
+            </button>
+          </div>
+          <ul class="st-list" id="stList"></ul>
+        </div>
+
+        <div class="modal-foot">
+          <button type="button" class="ghost-btn" id="tmCancel">انصراف</button>
+          <button type="submit" class="primary-btn" id="tmSubmit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg>
+            ذخیره
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════ DETAIL MODAL ═══════════ -->
+  <div class="modal-overlay" id="detailOverlay">
+    <div class="modal detail-modal" id="detailModal">
+      <div class="modal-head">
+        <h2>جزئیات تسک</h2>
+        <button class="modal-x" id="dtClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="modal-body" id="detailBody"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CONFIRM ═══════════ -->
+  <div class="modal-overlay confirm-overlay" id="confirmOverlay">
+    <div class="confirm-box">
+      <div class="confirm-ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m3 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14M10 11v6M14 11v6"/></svg>
+      </div>
+      <h3 id="confirmTitle">حذف تسک</h3>
+      <p id="confirmMsg">آیا مطمئن هستید؟</p>
+      <div class="confirm-btns">
+        <button class="ghost-btn" id="confirmNo">انصراف</button>
+        <button class="danger-btn" id="confirmYes">حذف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOAST ═══════════ -->
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
